@@ -9,6 +9,7 @@ export const LoginComponent = () => {
         console.log(username,password);
         authService.login(username,password);
         console.log(authService.getCurrentUser());
+        
         e.preventDefault();
         
     }
