@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_URL = "http://localhost:8080/";
+
+const API_URL = "https://localhost:8080/";
 class AuthService {
   login(username, password) {
     return axios
@@ -8,11 +9,15 @@ class AuthService {
         password
       })
       .then(response => {
-        console.log(response);
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+        
+        if (response.headers) {
+         
+          localStorage.setItem("username", response.data.username);
+          localStorage.setItem("accessToken", response.headers.authorization);
+          
+      
         }
-        return response.data;
+        return response.headers.authorization;
       });
   }
 
@@ -28,7 +33,10 @@ class AuthService {
 //     });
 //   }
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return localStorage.getItem("username");
+  }
+  getAccessToken() {
+    return localStorage.getItem("accessToken");
   }
 }
 export default new AuthService();

@@ -1,15 +1,19 @@
 import React, {useState} from 'react'
 import authService from '../services/auth.service';
+import userService from '../services/user.service';
 export const LoginComponent = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
-    const handleSubmit = (e) =>{
-        console.log(username,password);
+    const handleSubmit = async (e) =>{
+        
         authService.login(username,password);
         console.log(authService.getCurrentUser());
+        console.log(authService.getAccessToken());
         
+        let projects = await userService.getProjects();
+        console.log(projects.data);
         e.preventDefault();
         
     }
@@ -17,7 +21,7 @@ export const LoginComponent = () => {
     return (
         <div>
 
-            <form onSubmit={handleSubmit}>
+            
                 <label>
                     Username:
                     <input type="text" name="username" onChange={(e) => setUsername(e.target.value)}/>
@@ -26,8 +30,8 @@ export const LoginComponent = () => {
                     Password:
                     <input type="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
                 </label>
-                <input type="submit" value="Submit" />
-            </form>
+                <button onClick={handleSubmit}>Submit</button>
+            
         </div>
     )
 }
