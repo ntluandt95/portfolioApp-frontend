@@ -8,11 +8,8 @@ class AuthService {
         password
       })
       .then(response => {
-        console.log(response);
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
+        console.log(response.headers.authorization);
+        return response;
       });
   }
 
@@ -20,13 +17,13 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-//   register(User) {
-//     return axios.post(API_URL + "users", {
-//       username,
-//       email,
-//       password
-//     });
-//   }
+  //   register(User) {
+  //     return axios.post(API_URL + "users", {
+  //       username,
+  //       email,
+  //       password
+  //     });
+  //   }
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
