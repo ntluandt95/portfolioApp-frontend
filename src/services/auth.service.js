@@ -9,14 +9,15 @@ class AuthService {
         password
       })
       .then(response => {
-        
+
         if (response.headers) {
-         
+
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("accessToken", response.headers.authorization);
-          
-      
-        return response.headers.authorization;
+
+
+          return response.headers.authorization;
+        }
       });
   }
 
