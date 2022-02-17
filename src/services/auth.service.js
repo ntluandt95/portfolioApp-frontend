@@ -9,30 +9,31 @@ class AuthService {
         password
       })
       .then(response => {
-        
+
         if (response.headers) {
-         
+
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("accessToken", response.headers.authorization);
-          
-      
+
+
+          return response.headers.authorization;
         }
-        return response.headers.authorization;
       });
   }
 
   logout() {
+    localStorage.removeItem("user");
     localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
   }
 
-//   register(User) {
-//     return axios.post(API_URL + "users", {
-//       username,
-//       email,
-//       password
-//     });
-//   }
+  //   register(User) {
+  //     return axios.post(API_URL + "users", {
+  //       username,
+  //       email,
+  //       password
+  //     });
+  //   }
   getCurrentUser() {
     return localStorage.getItem("username");
   }
