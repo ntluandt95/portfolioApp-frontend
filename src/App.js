@@ -10,6 +10,8 @@ import authService from './services/auth.service';
 import SearchComponent from './component/SearchComponent';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
+
+
 function App() {
 
   const [user, setUser] = useState(authService.getCurrentUser());
@@ -23,12 +25,16 @@ function App() {
 
     authService.logout();
     setUser(authService.getCurrentUser());
+  }
+
+  const onClick = (e) => {
 
   }
 
   return (
     <div className="App">
       <Router>
+
         <Header user={user} onLogout={handleLogout} />
         <Route path='/Login'>
           <LoginComponent setUser={setUser} />
