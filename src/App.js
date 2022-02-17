@@ -1,39 +1,71 @@
+import logo from './logo.svg';
 import './App.css';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import "./bootstrap.min.css";
-import { useState } from 'react'
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link  } from 'react-router-dom'
 import { LoginComponent } from './component/LoginComponent';
 import { HeaderComponent } from './component/HeaderComponent';
 import { RegisterComponent } from './component/RegisterComponent';
+import authService from './services/auth.service';
+import SearchComponent from './component/SearchComponent';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+
 function App() {
 
-  const [username, setUsername] = useState("");
-  const [JWTtoken, setToken] = useState("");
+  const [user, setUser] = useState(authService.getCurrentUser());
+  
+  
+  useEffect(() => {
+    setUser(authService.getCurrentUser());
+  });
 
-  const logout = () => {
-    setUsername("")
-    setToken("")
+  const handleLogout = () => {
+  
+    authService.logout();
+    setUser(authService.getCurrentUser());
+    
   }
-
-  const login = (username, JWTToken) => {
-    setUsername(username)
-    setToken(JWTToken)
-  }
-
-  const LoginProps = { onLogout: { logout }, onLogin: { login } }
 
   return (
     <div className="App">
       <Router>
-        <HeaderComponent user={username} />
-        {/* <Route path='/Login' element={<LoginComponent onLogout={logout} onLogin={login} />} /> */}
-        <Route path='/Login' render={(props) => <LoginComponent {...props} onLogin={login} onLogout={logout} />} />
+        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <Link to='/' className="my-0 mr-md-auto font-weight-normal text-dark">Portfolio</Link>
+          <nav className="my-2 my-md-0 mr-md-3">
+            {(user == null) ? (
+            <div>
+              <Link to='/Register' className="p-2 text-dark" >Register</Link>
+              <Link to='/Login' className="p-2 text-dark" >Login</Link>
+            </div>) : (
+            <div>
+              Hello {user} <Link onClick={handleLogout} class="p-2 text-dark" >Logout</Link>
+              </div>)}
+          </nav>  
+        </div>
+        
+        <Route path='/Login'>
+          <LoginComponent setUser={setUser} />
+        </Route>
         <Route path='/Register' component={RegisterComponent} />
+        <Route path='/' component={SearchComponent} exact />
+        {(user) && (<Redirect from='/login' to=''/>)}
       </Router>
+
+
     </div>
+
   );
 }
-
 export default App;
+
+// function Child({ setCount }) {
+//   return (
+//     <div>
+//     <button onClick={() => setCount(1)}>1</button>
+//     <button onClick={() => setCount(2)}>2</button>
+//   </div>
+//   )
+// }
+
+
