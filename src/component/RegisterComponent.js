@@ -7,16 +7,20 @@ export function RegisterComponent() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
-    const [status, setStatus] = useState("");
+    //const [status, setStatus] = useState("PUBLIC");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [role, setRole] = useState("DEVELOPER");
 
     const handleSubmit = async () => {
-        let user = new User(username,password,firstname,lastname,email,phone,status);
+        let user = new User(username,password,firstname,lastname,email,phone);
         console.log(user);
         userService.postUser(user);
+        if(role==="DEVELOPER"){
+            userService.postDeveloper(user.username);
+        }
     }
 
     return (
@@ -59,9 +63,9 @@ export function RegisterComponent() {
                                     
                                     <div class="row">
                                     <div class="form-outline mb-4 col-6">
-                                        <select class="form-control form-control-lg" onChange={(e) => setStatus(e.target.value)} >
-                                            <option value="PUBLIC">Public</option>
-                                            <option value="HIDDEN">Hidden</option>
+                                        <select class="form-control form-control-lg" onChange={(e) => setRole(e.target.value)} >
+                                            <option value="DEVELOPER">Developer</option>
+                                            <option value="RECRUITER">Recruiter</option>
                                         </select>
                                     </div>
                                     <div class="form-outline mb-4 col-6">
