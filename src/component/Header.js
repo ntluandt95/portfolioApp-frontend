@@ -12,7 +12,6 @@ export const Header = ({ user, onLogout, setDev }) => {
   }
 
   React.useEffect(() => {
-    console.log("Effect in use");
     if (devUsername)
       developerService.getDevelopersByUsername(devUsername).then(resp => {
         setDev(resp)
@@ -34,12 +33,6 @@ export const Header = ({ user, onLogout, setDev }) => {
     setDevUsernemt(pathDevName);
   else if (isMyPage && (devUsername !== user.username))
     setDevUsernemt(user.username);
-
-  console.log((isDevPage || isAbout || isContact) && devUsername !== pathDevName)
-  console.log("path: " + pathDevName);
-  console.log("current: " + devUsername)
-  console.log(isMyPage)
-
 
   return (
     <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">

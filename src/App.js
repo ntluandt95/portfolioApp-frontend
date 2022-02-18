@@ -21,7 +21,7 @@ function App() {
 
   const [username, setUsername] = useState(authService.getCurrentUsername());
   const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
-  const [developer, setDeveloper] = useState({});
+  const [developer, setDeveloper] = useState(null);
 
   const handleLogout = () => {
 

@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from 'react'
 import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import logo from '../logo.svg';
 import userService from '../services/user.service';
 
 
@@ -9,22 +9,13 @@ const DeveloperProfileComponent = ({ developer }) => {
     const [user, setUser] = useState({});
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-    console.log("renderDeveloperProfileComponent")
     React.useEffect(() => {
-        userService.getUserByUsername(developer && developer.username).then(resp => {
-            setUser(resp.data)
-        }).catch(e => {
-            history.push("/404")
-            forceUpdate();
-        })
-    }, [])
-
-    const history = useHistory();
-    if (developer && developer.status !== "PUBLIC") {
-        console.log(developer)
-        history.push("/404")
-        forceUpdate();
-    }
+        if (developer)
+            userService.getUserByUsername(developer.username).then(resp => {
+                setUser(resp.data)
+            }).catch(e => {
+            })
+    }, [developer])
 
     const projects = developer && developer.projectList.map(proj =>
         <>
@@ -41,17 +32,35 @@ const DeveloperProfileComponent = ({ developer }) => {
         </>
     )
 
+
+
     return (
         <>
-            {developer && developer.status !== "PUBLIC" ?
-                <Redirect to="/404" /> :
-                <>
-                    <h1 className="display-2 text-white bg-dark">Hello I'm {user.firstName + " " + user.lastName}</h1>
-                    <h1 className="display-5 text-white bg-dark">I'm a {developer && developer.role}</h1>
-                    <dl className='row'>
-                        {projects}
-                    </dl>
-                </>
+            {developer && user.firstName ?
+                developer && (developer.status !== "PUBLIC") ?
+                    <Redirect to="/404" /> :
+                    <>
+                        <h1 className="display-2 text-white bg-dark">Hello I'm {user.firstName + " " + user.lastName}</h1>
+                        <h1 className="display-5 text-white bg-dark">I'm a {developer && developer.role}</h1>
+                        <dl className='row'>
+                            {projects}
+                        </dl>
+                    </>
+                :
+                <section className="vh-100" >
+                    <div className="container py-5 h-100">
+                        <div className="row d-flex justify-content-center align-items-center h-100">
+                            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                                <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
+                                    <div className="card-body p-5 text-center">
+                                        <h3 className="mb-5">Loading</h3>
+                                        <img src={logo} classname="App-logo" alt="logo"></img>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             }
         </>
     )
