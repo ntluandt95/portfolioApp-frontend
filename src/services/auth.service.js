@@ -1,8 +1,9 @@
 import axios from "axios";
+import userService from "./user.service";
 
 const API_URL = "https://localhost:8080/";
 class AuthService {
-  login(username, password) {
+  async login(username, password) {
     return axios
       .post(API_URL + "login", {
         username,
@@ -14,9 +15,6 @@ class AuthService {
 
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("accessToken", response.headers.authorization);
-
-
-          return response.headers.authorization;
         }
       });
   }
@@ -35,6 +33,9 @@ class AuthService {
   //     });
   //   }
   getCurrentUser() {
+    return localStorage.getItem("user");
+  }
+  getCurrentUsername() {
     return localStorage.getItem("username");
   }
   getAccessToken() {

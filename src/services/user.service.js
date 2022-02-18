@@ -7,6 +7,10 @@ class UserService {
     return axios.get(API_URL + 'Projects', { headers: authHeader() });
   }
 
+  async getUserByUsername(username) {
+    return axios.get(API_URL + 'users/' + username);
+  }
+
   postUser(user) {
     return axios.post(API_URL + 'users', {
       headers: authHeader(),
@@ -27,6 +31,10 @@ class UserService {
       headers: authHeader(),
       username: username
     });
+  }
+
+  search(searchString){
+    return axios.get(API_URL + 'search/'+searchString);
   }
 
 }
