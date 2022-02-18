@@ -17,9 +17,9 @@ export function RegisterComponent() {
     const handleSubmit = async () => {
         let user = new User(username,password,firstname,lastname,email,phone);
         console.log(user);
-        userService.postUser(user);
+        await userService.postUser(user);
         if(role==="DEVELOPER"){
-            userService.postDeveloper(user.username);
+            await userService.postDeveloper(user.username);
         }
     }
 
