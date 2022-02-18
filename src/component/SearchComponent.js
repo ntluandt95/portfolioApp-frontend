@@ -10,8 +10,9 @@ export default function SearchComponent() {
         const data = result.data;
         console.log(data);
         setList(data.map((element) =>(
-            <div class="col-4 offset-1" style={{ backgroundColor: 'white', marginTop: '1%' }}>
-                <h4>{element.username}</h4>
+            <div class="portfolioCard col-4 offset-1">
+                <h5>{element.username}</h5>
+                <hr></hr>
                 <p>{element.introduction}</p>
             </div>
         )));
