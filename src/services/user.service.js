@@ -33,5 +33,9 @@ class UserService {
     });
   }
 
+  search(searchString){
+    return axios.get(API_URL + 'search/'+searchString);
+  }
+
 }
 export default new UserService();
