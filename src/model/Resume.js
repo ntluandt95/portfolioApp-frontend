@@ -6,4 +6,12 @@ export class Resume {
         this.status = status;
         this.devUsername = devUsername; //the Developer Object
     }
+
+    constructor(title,link,status,devUsername){
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.status = status;
+        this.devUsername = devUsername; //the Developer Object
+    }
 }

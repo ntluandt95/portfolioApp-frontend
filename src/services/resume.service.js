@@ -3,6 +3,7 @@ import authHeader from './auth-header';
 const API_URL = 'https://localhost:8080/';
 const API_ENDPOINT = 'resume';
 class ResumeService {
+    
     addResume (){
         return axios.post(API_URL + API_ENDPOINT, {
             headers: authHeaders(),
@@ -17,19 +18,16 @@ class ResumeService {
 
 
     deleteResume(id){
-        return axios.delete(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
-            title: resume.title,
-            link: resume.link,
-            status: resume.status,
-            devUsername: resume.devUsername
+        return axios.delete(API_URL + API_ENDPOINT,+ '/' + id, {
+            headers: authHeaders()
+          
 
         });
 
     }
 
     getResume(id){
-        return axios.get(API_URL + API_ENDPOINT, {
+        return axios.get(API_URL + API_ENDPOINT + '/' + id, {
             headers: authHeaders()
         });
     }
