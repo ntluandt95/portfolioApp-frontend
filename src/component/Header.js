@@ -31,8 +31,8 @@ export const Header = ({ user, onLogout, setDev }) => {
   const isSettings = pathname.match("/settings")
   let pathDevName = pathname.split("/")[2];
   if ((isDevPage || isAbout || isContact) && devUsername !== pathDevName)
-    setDevUsernemt(pathname.split("/")[2]);
-  else if (isMyPage && devUsername !== pathDevName)
+    setDevUsernemt(pathDevName);
+  else if (isMyPage && (devUsername !== user.username))
     setDevUsernemt(user.username);
 
   console.log((isDevPage || isAbout || isContact) && devUsername !== pathDevName)
