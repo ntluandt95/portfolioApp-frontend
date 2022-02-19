@@ -20,7 +20,7 @@ const DeveloperProfileComponent = ({ developer }) => {
 
     const projects = developer && developer.projectList.map(proj =>
         <>
-            <div class="col-sm-4">
+            <div className="col-sm-4">
                 <Card name={proj.name} desc={proj.description} img={proj.imglink} github={proj.githublink} link={proj.deploymentlink} status={proj.status} />
             </div>
         </>
