@@ -77,3 +77,9 @@ button{
   background-color: white;
 }
 
+.portfolioCard{
+  background-color: white;
+  margin-top: 1%;
+  border-radius: 25px;
+
+}

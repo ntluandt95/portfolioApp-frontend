@@ -1,8 +1,9 @@
 import axios from "axios";
+import userService from "./user.service";
 
-const API_URL = "https://localhost:8080/";
+const API_URL = "https://ec2-34-224-38-22.compute-1.amazonaws.com:8081/";
 class AuthService {
-  login(username, password) {
+  async login(username, password) {
     return axios
       .post(API_URL + "login", {
         username,
@@ -14,10 +15,9 @@ class AuthService {
 
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("accessToken", response.headers.authorization);
-
-
-          return response.headers.authorization;
         }
+      }).catch(error =>{
+        return "invalid";
       });
   }
 
@@ -35,6 +35,9 @@ class AuthService {
   //     });
   //   }
   getCurrentUser() {
+    return localStorage.getItem("user");
+  }
+  getCurrentUsername() {
     return localStorage.getItem("username");
   }
   getAccessToken() {
