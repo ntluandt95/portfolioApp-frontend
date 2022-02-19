@@ -20,10 +20,10 @@ const DeveloperProfileComponent = ({ developer }) => {
     const projects = developer && developer.projectList.map(proj =>
         <>
             <dt className="col-sm-3 text-white bg-dark"><a href={proj.deploymentlink}>{proj.name}</a></dt >
-            <dd class="col-sm-9">
-                <dl class="row">
-                    <dt class="col-sm-4 text-white bg-dark">Status: {proj.status}</dt>
-                    <dd class="col-sm-8 text-white bg-dark">
+            <dd className="col-sm-9">
+                <dl className="row">
+                    <dt className="col-sm-4 text-white bg-dark">Status: {proj.status}</dt>
+                    <dd className="col-sm-8 text-white bg-dark">
                         <p>{proj.description}</p>
                         <p>{proj.githublink}</p>
                     </dd>
@@ -54,7 +54,7 @@ const DeveloperProfileComponent = ({ developer }) => {
                                 <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
                                     <div className="card-body p-5 text-center">
                                         <h3 className="mb-5">Loading</h3>
-                                        <img src={logo} classname="App-logo" alt="logo"></img>
+                                        <img src={logo} className="App-logo" alt="logo"></img>
                                     </div>
                                 </div>
                             </div>

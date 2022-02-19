@@ -36,7 +36,7 @@ export const Header = ({ user, onLogout, setDev }) => {
 
   return (
     <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <Link to={user ? '/mypage' : '/'} onClick={forceUpdate} className="my-0 mr-md-auto font-weight-normal text-dark">Portfolio</Link>
+      <div><Link to={user ? '/mypage' : '/'} onClick={forceUpdate} className="my-0 mr-md-auto font-weight-normal text-dark">Portfolio</Link></div>
       {!user ?
         <nav className="my-2 my-md-0 mr-md-3">
           <div>
@@ -46,16 +46,19 @@ export const Header = ({ user, onLogout, setDev }) => {
             <Link to='/Login' className="p-2 text-dark">Login</Link>
           </div>
         </nav> :
-        <nav className="my-2 my-md-0 mr-md-3">
-          <div>
-            Hello {user.firstName + " " + user.lastName + " "}
-            <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>
-            {(isDevPage || isMyPage || isContact) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
-            {(isAbout || isContact) && < Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
-            {(isAbout || isDevPage || isMyPage) && < Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
-            <Link to='/Login' onClick={handleLogout} className="p-2 text-dark">Logout</Link>
-          </div>
-        </nav >
+        <>
+          <div className="my-0 mr-md-auto font-weight-normal text-dark" style={{ marginLeft: '1%' }} >Hello {user.firstName + " " + user.lastName + " "}</div>
+          <nav className="my-2 my-md-0 mr-md-3">
+
+            <div>
+              {(isAbout || isContact) && < Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
+              {(isDevPage || isMyPage || isContact) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
+              {(isAbout || isDevPage || isMyPage) && < Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
+              <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>
+              <Link to='/Login' onClick={handleLogout} className="p-2 text-dark">Logout</Link>
+            </div>
+          </nav >
+        </>
       }
     </div >
 
