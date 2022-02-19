@@ -2,6 +2,7 @@ import React, { useReducer, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import logo from '../logo.svg';
 import userService from '../services/user.service';
+import Card from './card';
 
 
 
@@ -19,16 +20,9 @@ const DeveloperProfileComponent = ({ developer }) => {
 
     const projects = developer && developer.projectList.map(proj =>
         <>
-            <dt className="col-sm-3 text-white bg-dark"><a href={proj.deploymentlink}>{proj.name}</a></dt >
-            <dd className="col-sm-9">
-                <dl className="row">
-                    <dt className="col-sm-4 text-white bg-dark">Status: {proj.status}</dt>
-                    <dd className="col-sm-8 text-white bg-dark">
-                        <p>{proj.description}</p>
-                        <p>{proj.githublink}</p>
-                    </dd>
-                </dl>
-            </dd>
+            <div class="col-sm-4">
+                <Card name={proj.name} desc={proj.description} img={proj.imglink} github={proj.githublink} link={proj.deploymentlink} status={proj.status} />
+            </div>
         </>
     )
 
@@ -42,7 +36,7 @@ const DeveloperProfileComponent = ({ developer }) => {
                     <>
                         <h1 className="display-2 text-white bg-dark">Hello I'm {user.firstName + " " + user.lastName}</h1>
                         <h1 className="display-5 text-white bg-dark">I'm a {developer && developer.role}</h1>
-                        <dl className='row'>
+                        <dl className="col-sm-4">
                             {projects}
                         </dl>
                     </>

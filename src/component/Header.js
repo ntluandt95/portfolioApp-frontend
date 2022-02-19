@@ -31,7 +31,7 @@ export const Header = ({ user, onLogout, setDev }) => {
   let pathDevName = pathname.split("/")[2];
   if ((isDevPage || isAbout || isContact) && devUsername !== pathDevName)
     setDevUsernemt(pathDevName);
-  else if (isMyPage && (devUsername !== user.username))
+  else if (user && devUsername !== user.username)
     setDevUsernemt(user.username);
 
   return (
@@ -40,7 +40,7 @@ export const Header = ({ user, onLogout, setDev }) => {
       {!user ?
         <nav className="my-2 my-md-0 mr-md-3">
           <div>
-            {(isDevPage || isMyPage) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
+            {(isDevPage) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
             {isAbout && <Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
             <Link to='/Register' className="p-2 text-dark">Register</Link>
             <Link to='/Login' className="p-2 text-dark">Login</Link>
@@ -51,10 +51,10 @@ export const Header = ({ user, onLogout, setDev }) => {
           <nav className="my-2 my-md-0 mr-md-3">
 
             <div>
-              {(isAbout || isContact) && < Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
-              {(isDevPage || isMyPage || isContact) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
-              {(isAbout || isDevPage || isMyPage) && < Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
-              <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>
+              {(!isDevPage && !isMyPage) && < Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
+              {(!isAbout) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
+              {(!isContact) && < Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
+              {(!isSettings) && <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>}
               <Link to='/Login' onClick={handleLogout} className="p-2 text-dark">Logout</Link>
             </div>
           </nav >
