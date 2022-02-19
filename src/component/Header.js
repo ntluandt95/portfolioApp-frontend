@@ -14,7 +14,7 @@ export const Header = ({ user, setDev }) => {
         setDev(resp)
       }).catch(e => {
         history.push("/404")
-        forceUpdate();
+        forceUpdate()
       })
     }
   }
@@ -29,7 +29,7 @@ export const Header = ({ user, setDev }) => {
   let pathDevName = pathname.split("/")[2];
   if ((isDevPage || isAbout || isContact) && devUsername !== pathDevName)
     changeDevUsername(pathDevName);
-  else if (user && devUsername !== user.username)
+  else if (!(isDevPage || isAbout || isContact) && user && devUsername !== user.username)
     changeDevUsername(user.username);
   else if (!user && !pathDevName && devUsername)
     changeDevUsername(null)
