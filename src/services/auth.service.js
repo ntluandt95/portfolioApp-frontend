@@ -16,6 +16,8 @@ class AuthService {
           localStorage.setItem("username", response.data.username);
           localStorage.setItem("accessToken", response.headers.authorization);
         }
+      }).catch(error =>{
+        return "invalid";
       });
   }
 

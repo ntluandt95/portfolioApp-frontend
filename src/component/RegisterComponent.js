@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { User } from '../model/User';
 import userService from '../services/user.service';
+import { useHistory } from "react-router-dom";
 
 export function RegisterComponent() {
 
@@ -13,13 +14,24 @@ export function RegisterComponent() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [role, setRole] = useState("DEVELOPER");
-
+    const [alert, setAlert] = useState(null)
+    const history = useHistory();
     const handleSubmit = async () => {
-        let user = new User(username, password, firstname, lastname, email, phone);
-        console.log(user);
-        await userService.postUser(user);
-        if(role==="DEVELOPER"){
-            await userService.postDeveloper(user.username);
+        if(username===""){
+            setAlert("Username is required!");
+        }else if(password===""){
+            setAlert("Password is required!");
+        }else if(repassword!=password){
+            //console.log(repassword!=password)
+            setAlert("Please confirm password!");
+        }else{
+            let user = new User(username, password, firstname, lastname, email, phone);
+            await userService.postUser(user);
+            if (role === "DEVELOPER") {
+                await userService.postDeveloper(user.username);
+            }
+            window.alert("Register succeed");
+            history.push('/login');
         }
     }
 
@@ -33,6 +45,14 @@ export function RegisterComponent() {
                                 <div className="card-body p-5 text-center">
 
                                     <h3 className="mb-5">Register Form</h3>
+                                    {
+                                        (alert)
+                                        &&
+                                        (<div class="alert alert-danger" role="alert">
+                                            {alert}
+                                        </div>)
+                                    }
+
                                     <div className="row">
                                         <div className="form-outline mb-4 col-6">
                                             <input type="text" placeholder="username" id="typeEmailX-2" className="form-control form-control-lg" onChange={(e) => setUsername(e.target.value)} />
