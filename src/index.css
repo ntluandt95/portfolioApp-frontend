@@ -23,6 +23,25 @@ code {
   border-radius: 5px;
 }
 
-.add {
-  margin-bottom: 40px;
+.btn {
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 15px;
+  background: #40637a;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-left: 720px;
+}
+
+.btn:hover {
+  background: #c8dbe6;
+  background-image: -webkit-linear-gradient(top, #c8dbe6, #3498db);
+  background-image: -moz-linear-gradient(top, #c8dbe6, #3498db);
+  background-image: -ms-linear-gradient(top, #c8dbe6, #3498db);
+  background-image: -o-linear-gradient(top, #c8dbe6, #3498db);
+  background-image: linear-gradient(to bottom, #c8dbe6, #3498db);
+  text-decoration: none;
 }

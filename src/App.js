@@ -51,7 +51,7 @@ function App() {
           <Route path='/about/*'><DeveloperAboutComponent developer={developer} /></Route>
           <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings /></Route>
           <Route exact path='/' render={(props) => <SearchComponent {...props} user={username} onLogout={handleLogout} />} />
-          <Route exact path='/resume'><ResumeListComponent/></Route>
+          <Route exact path='/resumes'><ResumeListComponent/></Route>
           <Route> <PageNotFound user={username} onLogout={handleLogout} /></Route>
         </Switch>
       </Router>

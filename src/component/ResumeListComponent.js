@@ -2,6 +2,7 @@ import  {useState} from 'react';
 import { Resume } from '../model/Resume';
 import resumeService from '../services/resume.service';
 
+ 
 const ResumeListComponent = () => {
     
     const[title, setTitle] = useState('');
@@ -26,38 +27,47 @@ const ResumeListComponent = () => {
             console.log(resume);
                await resumeService.addResume(resume);
         };
-
-
-        return(
-            <>
-             <form className="add">
-             <div>
-                <label>Title</label>
-                <input type='text' placeholder='Enter Title' value={title}  onChange={(e) => setTitle(e.target.value)} />
-            </div>
-            <div>
-                <label>Link</label>
-                <input type='text' placeholder='Enter TLink' value={link}  onChange={(e) => setLink(e.target.value)} />
-            </div>
-            <div>
-                <label>Status</label>
-                <input type='text' placeholder='Enter Status' value={status}  onChange={(e) => setStatus(e.target.value)} />
-            </div>
-            
-        </form>
-        <input type='submit' value='Save Task' className='btn btn-block'/>
-            </>)
     }
-
-         function getAllResumes(){
-           resumeService.getAllResumes().then(res=> {
-               setResumes(res.data);
-           })
-
+        async function getAll () {
+           const url = 'https://localhost:8080/resumes'
+           const response = await fetch(url);
+         const resumeList = await response.json();
+           setResumes(resumeList);
+           console.log(resumeList);
         }
 
+        const tableData ={
+            color: 'steelblue',
+        }
+      
+        const table = {
+          
+            border: '2px solid black',
+            width: '600px',
+            height: '200px',
+            margin: "auto"
+        }
+        const tableHead = {
+            color: 'white',
+            fontSize: '20px',
+            fontWeight: 'bold',
+            borderBottom: '1px solid black',
+            margin: 'auto',
+            padding: "auto",
+            backgroundColor: 'navy'
+
+        }
+        const tableRow = {
+            borderBottom: '1px solid black',
+            padding: "auto",
+            color: 'steelblue'
+        }
+
+        
+       
+
     const showResume = resumes.map(r =>
-        <tr key ={r.id}>
+        <tr style={tableRow} key ={r.id}>
             <td>{r.title}</td>
             <td>{r.link}</td>
             <td>{r.status}</td>
@@ -66,22 +76,25 @@ const ResumeListComponent = () => {
 
     return (
         <div >
-        <button onClick={getAllResumes}>Show All Resumes</button>
-        <button onClick = {addResume}>Add Resume</button>
-        <table>
-            <thead>
+              <button className='btn' onClick = {getAll}>Get Resumes</button>
+        <table style={table}>
+            <thead style={tableHead}>
                 <tr>
                     <th>Title</th>
                     <th>Link</th>
                     <th>Status</th>
                 </tr>
             </thead>
+            
             <tbody>
                 {showResume}
             </tbody>
         </table>
+      
+        <button className='btn' onClick = {addResume}>Add Resume</button>
         </div>
     )
 }
+
 
 export default ResumeListComponent

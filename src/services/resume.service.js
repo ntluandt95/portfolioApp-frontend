@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from './auth-header';
 const API_URL = 'https://localhost:8080/';
-const API_ENDPOINT = 'resume';
+const API_ENDPOINT = 'resumes';
 class ResumeService {
     
     addResume(resume) {
@@ -26,10 +26,11 @@ class ResumeService {
 
     }
 
-    getResume(resume) {
-        return axios.get(API_URL + API_ENDPOINT + '/' +resume, {
+        async getResume(resume) {
+        const response = await axios.get(API_URL + API_ENDPOINT + '/' + resume, {
             headers: authHeader()
         });
+        return response.data
     }
 
     updateResume(resume) {
@@ -42,12 +43,13 @@ class ResumeService {
         });
     }
 
-    getAllResumes(){
-        return axios.get(API_URL + API_ENDPOINT,{
+     async getAllResumes(){
+        const response = await axios.get(API_URL + API_ENDPOINT,{
             headers: authHeader()
             
         });
+        return response.data;
     }
 
 }
-export default new ResumeService
+export default new ResumeService();
