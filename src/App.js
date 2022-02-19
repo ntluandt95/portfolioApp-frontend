@@ -21,7 +21,7 @@ function App() {
 
   const [username, setUsername] = useState(authService.getCurrentUsername());
   const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
-  const [developer, setDeveloper] = useState({});
+  const [developer, setDeveloper] = useState(null);
 
   const handleLogout = () => {
 
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header user={user} onLogout={handleLogout} setDev={setDeveloper} />
+        <Header user={user} setDev={setDeveloper} />
         <Switch>
           <Route exact path='/Login'><LoginComponent setUser={handleLogin} user={username} onLogout={handleLogout} /></Route>
           <Route exact path='/Register'> {(username) && (<Redirect to='/login' />)}<RegisterComponent /></Route>
