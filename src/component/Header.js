@@ -61,6 +61,7 @@ export const Header = ({ user, onLogout, setDev }) => {
             {(isAbout || isContact) && < Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
             {(isAbout || isDevPage || isMyPage) && < Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
             <Link to='/Login' onClick={handleLogout} className="p-2 text-dark">Logout</Link>
+            <Link to='/resume' onClick={forceUpdate}>Resume</Link>
           </div>
         </nav >
       }
