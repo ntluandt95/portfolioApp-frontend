@@ -18,12 +18,20 @@ export default function SearchComponent() {
         )));
 
     }
+
+    const handleKeyDown = (e) => {
+
+        if (e.keyCode == 13)
+            handleSearch(e);
+    }
+
+
     return (
         <div className="container" style={{ paddingTop: '15%' }}>
             <div className="row" >
 
                 <div className="col-8 offset-1" style={{ backgroundColor: 'white', padding: '0' }}>
-                    <input type="text" placeholder='Search for portfolio' className="form-control" name="" id="" onChange={(e) => setSearch(e.target.value)} />
+                    <input type="text" placeholder='Search for portfolio' className="form-control" name="" id="" onKeyDown={handleKeyDown} onChange={(e) => setSearch(e.target.value)} />
                 </div>
                 <div className="col-1" style={{ paddingLeft: '20' }}>
                     <button className="btn btn-primary" onClick={handleSearch}>Search</button>

@@ -2,6 +2,8 @@ import React from 'react'
 
 
 const Card = ({ name, desc, img, github, link, status }) => {
+
+    console.log(link);
     return (
         <div>
             <div className="card mb-4 box-shadow">
@@ -11,7 +13,7 @@ const Card = ({ name, desc, img, github, link, status }) => {
                 <div>
 
                     <a href={link}><img src={img} alt={name} height='250' width='100%' /></a>
-
+                    <p>{desc}</p>
                     <a href={github} className="btn btn-block btn-lg ">Github</a>
                 </div>
             </div>
