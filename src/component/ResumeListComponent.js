@@ -29,11 +29,22 @@ const ResumeListComponent = () => {
         };
     }
         async function getAll () {
-           const url = 'https://localhost:8080/resumes'
+           const url = 'https://ec2-34-224-38-22.compute-1.amazonaws.com:8081/Resume'
            const response = await fetch(url);
-         const resumeList = await response.json();
+         const resumeList = await response.json().catch(error =>{
+             if(error.response){
+                 console.log(error.response.data);
+             }
+         })
            setResumes(resumeList);
            console.log(resumeList);
+        // resumeService.getAllResumes().then(data =>{
+        //     setResumes(data.data);
+        // }).catch(error => {
+        //     if(error.data){
+        //         console.log(error.data.data)
+        //     }
+        // })
         }
 
         const tableData ={
