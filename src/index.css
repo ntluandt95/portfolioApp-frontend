@@ -12,9 +12,52 @@ code {
     monospace;
 }
 
+.page{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-.container {
-  max-width: 500px;
+}
+
+
+.getbtn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px; 
+
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+.resheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.getbtn:focus {
+  outline: none;
+}
+
+.getbtn:active {
+  transform: scale(0.98);
+}
+
+.resume {
+  background: #f4f4f4;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: left;
+}
+.resumecontainer {
+  max-width: 800px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
@@ -23,25 +66,13 @@ code {
   border-radius: 5px;
 }
 
-.btn {
-  -webkit-border-radius: 15;
-  -moz-border-radius: 15;
-  border-radius: 15px;
-  font-family: Georgia;
-  color: #ffffff;
-  font-size: 15px;
-  background: #40637a;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  margin-left: 720px;
+.resumeForm {
+  margin-bottom: 40px;
 }
-
-.btn:hover {
-  background: #c8dbe6;
-  background-image: -webkit-linear-gradient(top, #c8dbe6, #3498db);
-  background-image: -moz-linear-gradient(top, #c8dbe6, #3498db);
-  background-image: -ms-linear-gradient(top, #c8dbe6, #3498db);
-  background-image: -o-linear-gradient(top, #c8dbe6, #3498db);
-  background-image: linear-gradient(to bottom, #c8dbe6, #3498db);
-  text-decoration: none;
+.resControl {
+  margin: 20px 0;
+}
+.formbtn-block {
+  display: block;
+  width: 100%;
 }
