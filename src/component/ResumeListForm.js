@@ -1,5 +1,6 @@
 
 import {useState} from 'react';
+import ResumeListComponent from './ResumeListComponent';
 
 const ResumeListForm = ({onAdd}) => {
     const[title, setTitle] = useState('');
@@ -30,7 +31,9 @@ const ResumeListForm = ({onAdd}) => {
              value={link} onChange={(e) => setLink(e.target.value)} />
         </div>
         <input type='submit' value='Submit Resume' className="getbtn formbtn-block" />
+        <ResumeListComponent  resTitle = {title} resLink = {link}/>
     </form>
+    
   )
 }
 
