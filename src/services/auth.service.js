@@ -1,6 +1,10 @@
 import axios from "axios";
 
+<<<<<<< Updated upstream
 const API_URL = "https://localhost:8080/";
+=======
+const API_URL = "http://ec2-34-224-38-22.compute-1.amazonaws.com:8081/";
+>>>>>>> Stashed changes
 class AuthService {
   login(username, password) {
     return axios
