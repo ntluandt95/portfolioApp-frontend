@@ -1,11 +1,12 @@
 import axios from "axios";
 import authHeader from './auth-header';
-const API_URL = 'https://localhost:8080/';
-const API_ENDPOINT = 'resume';
+const API_URL = 'https://ec2-34-224-38-22.compute-1.amazonaws.com:8081/';
+const API_ENDPOINT = 'Resumes';
 class ResumeService {
-    addResume() {
+    
+    addResume(resume) {
         return axios.post(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
+            headers: authHeader(),
             title: resume.title,
             link: resume.link,
             status: resume.status,
@@ -17,26 +18,24 @@ class ResumeService {
 
 
     deleteResume(id) {
-        return axios.delete(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
-            title: resume.title,
-            link: resume.link,
-            status: resume.status,
-            devUsername: resume.devUsername
+        return axios.delete(API_URL + API_ENDPOINT,+ '/' + id, {
+            headers: authHeader()
+          
 
         });
 
     }
 
-    getResume(id) {
-        return axios.get(API_URL + API_ENDPOINT, {
-            headers: authHeaders()
+        async getResume(resume) {
+        const response = await axios.get(API_URL + API_ENDPOINT + '/' + resume, {
+            headers: authHeader()
         });
+        return response.data
     }
 
     updateResume(resume) {
         return axios.put(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
+            headers: authHeader(),
             title: resume.title,
             link: resume.link,
             status: resume.status,
@@ -44,8 +43,13 @@ class ResumeService {
         });
     }
 
-    getResumeByDeveloper(devUsername) {
-        return axios.get(API_URL + API_ENDPOINT, { headers: authHeaders() });
+     async getAllResumes(){
+        const response = await axios.get(API_URL + API_ENDPOINT,{
+            headers: authHeader()
+            
+        });
+        return response.data;
     }
 
 }
+export default new ResumeService();

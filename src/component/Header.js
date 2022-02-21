@@ -62,6 +62,7 @@ export const Header = ({ user, setDev }) => {
               <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>
               <Link to='/' className="p-2 text-dark">Search</Link>
               <Link to='/Login' onClick={forceUpdate} className="p-2 text-dark">Logout</Link>
+            <Link to='/resume' onClick={forceUpdate}>Resume</Link>
             </div>
           </nav >
         </>

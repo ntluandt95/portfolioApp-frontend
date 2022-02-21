@@ -6,4 +6,5 @@ export class Resume {
         this.status = status;
         this.devUsername = devUsername; //the Developer Object
     }
+
 }
