@@ -29,12 +29,12 @@ export const ProjectFormComponent = ({ setComponent, id }) => {
     const handleSubmit = async () => {
         if (id == null) {
             let devUsername = authService.getCurrentUsername;
-            let project = new Project(1001, projectname, description, deploymentlink, imageLink, githublink, status, devUsername);
+            let project = new Project(1001, projectname, description, deploymentlink, githublink, imageLink, status, devUsername);
             let response = await projectService.postProject(project);
             window.alert("Project Added!");
         }else{
             let devUsername = authService.getCurrentUsername;
-            let project = new Project(id, projectname, description, deploymentlink, imageLink, githublink, status, devUsername);
+            let project = new Project(id, projectname, description, deploymentlink, githublink, imageLink, status, devUsername);
             let response = await projectService.putProject(id,project);
             window.alert("Project Updated!");
         }
