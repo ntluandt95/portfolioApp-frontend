@@ -44,6 +44,7 @@ export const Header = ({ user, setDev }) => {
             <div>
               {(isAbout || isContact || isDevPage) && <Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>}
               {(isAbout || isContact || isDevPage) && <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>}
+              {(isAbout || isContact || isDevPage) && <Link to={'/resume/' + devUsername} onClick={forceUpdate} className="p-2 text-dark">Resume</Link>}
               {(isAbout || isContact || isDevPage) && <Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>}
               <Link to='/Register' onClick={forceUpdate} className="p-2 text-dark">Register</Link>
               <Link to='/' onClick={forceUpdate} className="p-2 text-dark">Search</Link>
@@ -58,11 +59,11 @@ export const Header = ({ user, setDev }) => {
             <div>
               <Link to={"/developer/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Profile</Link>
               <Link to={"/about/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">About</Link>
+              <Link to={'/resume/' + devUsername} onClick={forceUpdate} className="p-2 text-dark">Resume</Link>
               <Link to={"/contact/" + devUsername} onClick={forceUpdate} className="p-2 text-dark">Contact</Link>
               <Link to="/settings" className="p-2 text-dark" onClick={forceUpdate}>Settings</Link>
               <Link to='/' className="p-2 text-dark">Search</Link>
               <Link to='/Login' onClick={forceUpdate} className="p-2 text-dark">Logout</Link>
-            <Link to='/resume' onClick={forceUpdate}>Resume</Link>
             </div>
           </nav >
         </>

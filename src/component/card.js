@@ -3,7 +3,6 @@ import React from 'react'
 
 const Card = ({ name, desc, img, github, link, status }) => {
 
-    console.log(link);
     return (
         <div>
             <div className="card mb-4 box-shadow">

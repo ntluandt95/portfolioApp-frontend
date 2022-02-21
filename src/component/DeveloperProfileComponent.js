@@ -31,12 +31,12 @@ const DeveloperProfileComponent = ({ developer }) => {
     return (
         <>
             {developer && user.firstName ?
-                developer && (developer.status !== "PUBLIC") ?
+                developer.status !== "PUBLIC" ?
                     <Redirect to="/404" /> :
                     <>
-                        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                             <h1 className="display-2 text-white bg-dark">Hello I'm {user.firstName + " " + user.lastName}</h1>
-                            <h1 className="display-5 text-white bg-dark">I'm a {developer && developer.role}</h1>
+                            <h1 className="display-5 text-white bg-dark">I'm a {developer.role}</h1>
                         </div>
                         {projects}
                     </>
