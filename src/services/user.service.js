@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../model/User';
 import authHeader from './auth-header';
-const API_URL = 'http://localhost:8081/';
+const API_URL = 'https://localhost:8081/';
 class UserService {
   getProjects() {
     return axios.get(API_URL + 'Projects', { headers: authHeader() });
@@ -35,26 +35,34 @@ class UserService {
       email: user.email,
       phoneNumber: user.phoneNumber,
       status: user.status,
-    },{headers: authHeader()});
+    }, { headers: authHeader() });
 
 
   }
 
   postDeveloper(username) {
     return axios.post(API_URL + 'developers', {
-      headers: authHeader(),
-      username: username
-    });
+      username: username,
+      introduction: "",
+      status: 0,
+      role: ""
+    },
+      {
+        headers: authHeader()
+      });
   }
   putDeveloper(dev) {
     return axios.post(API_URL + 'developers', {
       username: dev.username,
       introduction: dev.introduction
-    },{headers: authHeader()});
+    },
+      {
+        headers: authHeader()
+      });
   }
 
-  search(searchString){
-    return axios.get(API_URL + 'search/'+searchString);
+  search(searchString) {
+    return axios.get(API_URL + 'search/' + searchString);
   }
 
 }

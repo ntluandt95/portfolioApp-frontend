@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { Project } from '../model/Project';
 import authHeader from './auth-header';
 import authService from './auth.service';
-const API_URL = "http://localhost:8081/";
+const API_URL = "https://localhost:8081/";
 
 class ProjectService {
     getProjects() {
@@ -29,7 +28,7 @@ class ProjectService {
         return list;
     }
 
-    
+
 
     postProject(project) {
         let request = {

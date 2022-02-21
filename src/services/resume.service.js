@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from './auth-header';
 import authService from "./auth.service";
 
-const API_URL = 'http://localhost:8081/';
+const API_URL = 'https://localhost:8081/';
 const API_ENDPOINT = 'resume';
 class ResumeService {
 
@@ -28,7 +28,7 @@ class ResumeService {
         const list = []
 
         await data.forEach(element => {
-            if (element.devUsername && element.status=="PUBLIC") {
+            if (element.devUsername && element.status == "PUBLIC") {
 
                 if (element.devUsername.username == username || element.devUsername == username) {
                     list.push(element)
@@ -40,9 +40,9 @@ class ResumeService {
 
     postResume(resume) {
         let request = {
-            title : resume.title,
-            link : resume.link,
-            status : resume.status,
+            title: resume.title,
+            link: resume.link,
+            status: resume.status,
             devUsername: {
                 username: authService.getCurrentUsername()
             }
@@ -50,25 +50,25 @@ class ResumeService {
         return axios.post(API_URL + 'Resumes', request, { headers: authHeader() });
     }
 
-    putResume(id,resume) {
+    putResume(id, resume) {
         let request = {
             id: id,
-            title : resume.title,
-            link : resume.link,
-            status : resume.status,
+            title: resume.title,
+            link: resume.link,
+            status: resume.status,
             devUsername: {
                 username: authService.getCurrentUsername()
             }
         }
-        return axios.put(API_URL + 'Resumes/'+id, request, { headers: authHeader() });
+        return axios.put(API_URL + 'Resumes/' + id, request, { headers: authHeader() });
     }
 
-    getResumeById(id){
-        return axios.get(API_URL + 'Resumes/'+id, { headers: authHeader() });
+    getResumeById(id) {
+        return axios.get(API_URL + 'Resumes/' + id, { headers: authHeader() });
     }
-    
-    deleteResume(id){
-        return axios.delete(API_URL + 'Resumes/'+id, { headers: authHeader() });
+
+    deleteResume(id) {
+        return axios.delete(API_URL + 'Resumes/' + id, { headers: authHeader() });
     }
 
 }
