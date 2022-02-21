@@ -22,8 +22,19 @@ class UserService {
       phoneNumber: user.phoneNumber,
       status: user.status,
     });
+  }
 
-
+  updateUser(user) {
+    return axios.put(API_URL + 'users', {
+      headers: authHeader(),
+      username: user.username,
+      password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      status: user.status,
+    });
   }
 
   postDeveloper(username) {

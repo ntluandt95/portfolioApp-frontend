@@ -50,7 +50,7 @@ function App() {
           <Route path='/developer/*'><DeveloperProfileComponent user={viewedUser} /></Route>
           <Route path='/contact/*'><DeveloperContact user={viewedUser} /></Route>
           <Route path='/about/*'><DeveloperAboutComponent user={viewedUser} /></Route>
-          <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings /></Route>
+          <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings user={user} developer={viewedUser && viewedUser.developer} /></Route>
           <Route exact path='/' render={(props) => <SearchComponent {...props} user={username} onLogout={handleLogout} />} />
           <Route exact path='/resumes'><ResumeListComponent /></Route>
           <Route exact path='/resume/*'><Resume /></Route>

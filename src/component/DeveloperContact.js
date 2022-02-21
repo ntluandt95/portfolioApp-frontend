@@ -20,7 +20,10 @@ const DeveloperContact = ({ user }) => {
                                         <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
                                             <div className="card-body p-5 text-center">
                                                 <h1 className="display-2">Where to Reach Me</h1>
-                                                <h1 className="display-5 text-white bg-dark">{developer.introduction}</h1>
+                                                <div className="text-white bg-dark">
+                                                    <h1 className="display-">{user.email && "Email: " + user.email}</h1>
+                                                    <h1 >{user.phoneNumber && "Phone Number: " + user.phoneNumber}</h1>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

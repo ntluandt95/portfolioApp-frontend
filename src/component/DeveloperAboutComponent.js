@@ -19,8 +19,8 @@ const DeveloperAboutComponent = ({ user }) => {
                                     <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                                         <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
                                             <div className="card-body p-5 text-center">
-                                                <h1>{user.firstName + " " + user.lastName}</h1>
-                                                <h1>{developer.introduction}</h1>
+                                                <h1 className="display-2">Who I am</h1>
+                                                <h1 className="display-5 text-white bg-dark">{developer.introduction}</h1>
                                             </div>
                                         </div>
                                     </div>

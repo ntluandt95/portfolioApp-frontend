@@ -56,5 +56,14 @@ class DeveloperService {
         return this.getDevelopersByUsername(resume.devUsername.username);
     }
 
+    async updateDeveloper(developer) {
+        const response = await axios.put(API_URL + API_ENDPOINT + developer.username, {
+            headers: authHeader(),
+            username: developer.username,
+            introduction: developer.password,
+            status: developer.firstName,
+            role: developer.role,
+        });
+    }
 }
 export default new DeveloperService();

@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from 'react'
 import { Redirect } from 'react-router-dom';
 import logo from '../logo.svg';
-import userService from '../services/user.service';
 import Card from './card';
 
 
