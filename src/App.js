@@ -23,7 +23,7 @@ function App() {
 
   const [username, setUsername] = useState(authService.getCurrentUsername());
   const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
-  const [developer, setDeveloper] = useState(null);
+  const [viewedUser, setViewedUser] = useState(null);
 
 
   const handleLogout = () => {
@@ -42,14 +42,14 @@ function App() {
     <div className="App">
 
       <Router>
-        <Header user={user} setDev={setDeveloper} />
+        <Header user={user} setUser={setViewedUser} />
         <Switch>
           <Route exact path='/Login'><LoginComponent setUser={handleLogin} user={username} onLogout={handleLogout} /></Route>
           <Route exact path='/Register'> {(username) && (<Redirect to='/login' />)}<RegisterComponent /></Route>
-          <Route exact path='/mypage'> {(!username) && (<Redirect to='/login' />)}<DeveloperProfileComponent developer={developer} /></Route>
-          <Route path='/developer/*'><DeveloperProfileComponent developer={developer} /></Route>
-          <Route path='/contact/*'><DeveloperContact developer={developer} /></Route>
-          <Route path='/about/*'><DeveloperAboutComponent developer={developer} /></Route>
+          <Route exact path='/mypage'> {(!username) && (<Redirect to='/login' />)}<DeveloperProfileComponent user={viewedUser} /></Route>
+          <Route path='/developer/*'><DeveloperProfileComponent user={viewedUser} /></Route>
+          <Route path='/contact/*'><DeveloperContact user={viewedUser} /></Route>
+          <Route path='/about/*'><DeveloperAboutComponent user={viewedUser} /></Route>
           <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings /></Route>
           <Route exact path='/' render={(props) => <SearchComponent {...props} user={username} onLogout={handleLogout} />} />
           <Route exact path='/resumes'><ResumeListComponent /></Route>

@@ -1,8 +1,8 @@
 import React, { useState, Component, useReducer } from 'react'
 import { Link } from 'react-router-dom'
-import developerService from '../services/developer.service';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-export const Header = ({ user, setDev }) => {
+import userService from '../services/user.service';
+export const Header = ({ user, setUser }) => {
 
   const [devUsername, setDevUsername] = useState("");
   const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -10,8 +10,8 @@ export const Header = ({ user, setDev }) => {
   const changeDevUsername = (devUsername) => {
     setDevUsername(devUsername);
     if (devUsername) {
-      developerService.getDevelopersByUsername(devUsername).then(resp => {
-        setDev(resp)
+      userService.getUserByUsername(devUsername).then(resp => {
+        setUser(resp.data)
       }).catch(e => {
         history.push("/404")
         forceUpdate()

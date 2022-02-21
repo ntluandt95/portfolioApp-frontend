@@ -3,17 +3,9 @@ import { Redirect } from 'react-router-dom';
 import userService from '../services/user.service';
 import logo from '../logo.svg';
 
-const DeveloperAboutComponent = ({ developer }) => {
-    const [user, setUser] = useState({});
+const DeveloperAboutComponent = ({ user }) => {
     const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-    React.useEffect(() => {
-        if (developer)
-            userService.getUserByUsername(developer.username).then(resp => {
-                setUser(resp.data)
-            }).catch(e => {
-            })
-    }, [developer])
+    const developer = user && user.developer
 
     return (
         <>
@@ -21,10 +13,20 @@ const DeveloperAboutComponent = ({ developer }) => {
                 developer.status !== "PUBLIC" ?
                     <Redirect to="/404" /> :
                     <>
-                        <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                            <h1 className="display-2 text-white bg-dark">{user.firstName + " " + user.lastName}</h1>
-                            <h1 className="display-5 text-white bg-dark">{developer.introduction}</h1>
-                        </div>
+                        <section>
+                            <div className=" py-3">
+                                <div className="row d-flex justify-content-center align-items-center h-100">
+                                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                                        <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
+                                            <div className="card-body p-5 text-center">
+                                                <h1>{user.firstName + " " + user.lastName}</h1>
+                                                <h1>{developer.introduction}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </>
                 :
                 <section className="vh-100" >
