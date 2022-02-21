@@ -1,51 +1,75 @@
 import axios from "axios";
 import authHeader from './auth-header';
-const API_URL = 'https://localhost:8080/';
+import authService from "./auth.service";
+
+const API_URL = 'http://localhost:8081/';
 const API_ENDPOINT = 'resume';
 class ResumeService {
-    addResume() {
-        return axios.post(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
-            title: resume.title,
-            link: resume.link,
-            status: resume.status,
-            devUsername: resume.devUsername
 
+    async getResumesByUsername(username) {
+        let response = await axios.get(API_URL + 'Resumes', { headers: authHeader() });
+        const data = await response.data
+        const list = []
+
+        await data.forEach(element => {
+            if (element.devUsername) {
+
+                if (element.devUsername.username == username || element.devUsername == username) {
+                    list.push(element)
+                }
+            }
         });
-
+        return list;
     }
 
+    async getPublicResumesByUsername(username) {
+        let response = await axios.get(API_URL + 'Resumes', { headers: authHeader() });
+        const data = await response.data
+        const list = []
 
-    deleteResume(id) {
-        return axios.delete(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
-            title: resume.title,
-            link: resume.link,
-            status: resume.status,
-            devUsername: resume.devUsername
+        await data.forEach(element => {
+            if (element.devUsername && element.status=="PUBLIC") {
 
+                if (element.devUsername.username == username || element.devUsername == username) {
+                    list.push(element)
+                }
+            }
         });
-
+        return list;
     }
 
-    getResume(id) {
-        return axios.get(API_URL + API_ENDPOINT, {
-            headers: authHeaders()
-        });
+    postResume(resume) {
+        let request = {
+            title : resume.title,
+            link : resume.link,
+            status : resume.status,
+            devUsername: {
+                username: authService.getCurrentUsername()
+            }
+        }
+        return axios.post(API_URL + 'Resumes', request, { headers: authHeader() });
     }
 
-    updateResume(resume) {
-        return axios.put(API_URL + API_ENDPOINT, {
-            headers: authHeaders(),
-            title: resume.title,
-            link: resume.link,
-            status: resume.status,
-            devUsername: resume.devUsername
-        });
+    putResume(id,resume) {
+        let request = {
+            id: id,
+            title : resume.title,
+            link : resume.link,
+            status : resume.status,
+            devUsername: {
+                username: authService.getCurrentUsername()
+            }
+        }
+        return axios.put(API_URL + 'Resumes/'+id, request, { headers: authHeader() });
     }
 
-    getResumeByDeveloper(devUsername) {
-        return axios.get(API_URL + API_ENDPOINT, { headers: authHeaders() });
+    getResumeById(id){
+        return axios.get(API_URL + 'Resumes/'+id, { headers: authHeader() });
+    }
+    
+    deleteResume(id){
+        return axios.delete(API_URL + 'Resumes/'+id, { headers: authHeader() });
     }
 
 }
+export default new ResumeService();

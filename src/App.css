@@ -83,3 +83,14 @@ button{
   border-radius: 25px;
 
 }
+
+.popup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.borderless td, .borderless th {
+  border: none;
+}

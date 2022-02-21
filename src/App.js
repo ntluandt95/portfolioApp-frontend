@@ -13,39 +13,39 @@ import './services/developer.service'
 import DeveloperProfileComponent from './component/DeveloperProfileComponent';
 import { PageNotFound } from './component/PageNotFound';
 import { Header } from './component/Header';
-import DeveloperAboutComponent from './component/DeveloperAboutComponent';
+import { HeaderDev } from './component/HeaderDev';
+
 import DeveloperSettings from './component/DeveloperSettings';
-import DeveloperContact from './component/DeveloperContact';
+
 
 function App() {
 
   const [username, setUsername] = useState(authService.getCurrentUsername());
-  const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
+  // const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
   const [developer, setDeveloper] = useState({});
 
   const handleLogout = () => {
 
     authService.logout();
-    setUser(JSON.parse(authService.getCurrentUser()));
+    // setUser(JSON.parse(authService.getCurrentUser()));
     setUsername(authService.getCurrentUsername());
   }
 
   const handleLogin = () => {
-    setUser(JSON.parse(authService.getCurrentUser()));
+    // setUser(JSON.parse(authService.getCurrentUser()));
     setUsername(authService.getCurrentUsername());
   }
 
   return (
     <div className="App">
       <Router>
-        <Header user={user} onLogout={handleLogout} setDev={setDeveloper} />
+        {(username)? (<HeaderDev username={username} onLogout={handleLogout} setDev={setDeveloper} />): (<Header username={username} onLogout={handleLogout} setDev={setDeveloper} />)}
+        
         <Switch>
           <Route exact path='/Login'><LoginComponent setUser={handleLogin} user={username} onLogout={handleLogout} /></Route>
           <Route exact path='/Register'> {(username) && (<Redirect to='/login' />)}<RegisterComponent /></Route>
-          <Route exact path='/mypage'> {(!username) && (<Redirect to='/login' />)}<DeveloperProfileComponent developer={developer} /></Route>
-          <Route path='/developer/*'><DeveloperProfileComponent developer={developer} /></Route>
-          <Route path='/contact/*'><DeveloperContact developer={developer} /></Route>
-          <Route path='/about/*'><DeveloperAboutComponent developer={developer} /></Route>
+          <Route exact path='/mypage/:username'> <DeveloperProfileComponent username={username} /></Route>
+          
           <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings /></Route>
           <Route exact path='/' render={(props) => <SearchComponent {...props} user={username} onLogout={handleLogout} />} />
           <Route> <PageNotFound user={username} onLogout={handleLogout} /></Route>

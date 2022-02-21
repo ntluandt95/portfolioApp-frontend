@@ -1,58 +1,106 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import userService from '../services/user.service';
+import { useParams } from 'react-router-dom'
+import Card from './Card'
+import projectService from '../services/project.service';
+import developerService from '../services/developer.service';
+import resumeService from '../services/resume.service';
+import { Link } from 'react-router-dom'
+
+const DeveloperProfileComponent = (props) => {
+    const { username } = useParams()
+    const [data, setData] = useState([])
+    const [user, setUser] = useState(userService.getUserByUsername(username))
+    const [dev, setDev] = useState(developerService.getDevelopersByUsername(username))
+    const [resumes, setResumes] = useState([]);
+    const [option, setOption] = useState(1);
 
 
+    useEffect(async () => {
+        const response = await userService.getUserByUsername(username);
+        await setUser(response.data)
+        const responseDev = await developerService.getDevelopersByUsername(username);
+        await setDev(responseDev.data)
+        await fetchCards();
+        await fetchResumes();
+    }, [data]);
 
-const DeveloperProfileComponent = ({ developer }) => {
-    const [user, setUser] = useState({});
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
+    const fetchCards = async () => {
+        const response = await projectService.getProjectsByUsername(username);
 
-    console.log("renderDeveloperProfileComponent")
-    // React.useEffect(() => {
-    //     userService.getUserByUsername(developer && developer.username).then(resp => {
-    //         setUser(resp.data)
-    //     }).catch(e => {
-    //         history.push("/404")
-    //         forceUpdate();
-    //     })
-    // }, [])
 
-    // const history = useHistory();
-    // if (developer && developer.status !== "PUBLIC") {
-    //     console.log(developer)
-    //     history.push("/404")
-    //     forceUpdate();
-    // }
+        setData(response.map((element) => (
+            <div class="col-sm-4">
+                <Card description={element.description} name={element.name} img={element.imgLink} github={element.githublink} link={element.deploymentlink} />
+            </div>
+        )));
 
-    // const projects = developer && developer.projectList.map(proj =>
-    //     <>
-    //         <dt className="col-sm-3 text-white bg-dark"><a href={proj.deploymentlink}>{proj.name}</a></dt >
-    //         <dd class="col-sm-9">
-    //             <dl class="row">
-    //                 <dt class="col-sm-4 text-white bg-dark">Status: {proj.status}</dt>
-    //                 <dd class="col-sm-8 text-white bg-dark">
-    //                     <p>{proj.description}</p>
-    //                     <p>{proj.githublink}</p>
-    //                 </dd>
-    //             </dl>
-    //         </dd>
-    //     </>
-    // )
+    }
+    const fetchResumes = async () => {
+        const response = await resumeService.getPublicResumesByUsername(username);
+
+        setResumes(response.map((element) => (
+            <p className="lead" style={{ textAlign: 'left' }}>
+                <a href={element.link}>Download my {element.title} resume</a>
+            </p>
+        )));
+        console.log(resumes)
+    }
+
 
     return (
         <>
-            {/* {developer && developer.status !== "PUBLIC" ?
-                <Redirect to="/404" /> :
+            <div className='container' style={{ backgroundColor: 'white' }}>
+                <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+                    <Link className="my-0 mr-md-auto font-weight-normal text-dark">{user.firstName + " " + user.lastName} Portfolio</Link>
+                    <div>
+                        <nav className="my-2 my-md-0 mr-md-3">
+                            <Link className="p-2 text-dark" onClick={()=>{setOption(1)}}>Projects</Link>
+                            <Link className="p-2 text-dark" onClick={()=>{setOption(2)}}>About</Link>
+                            <Link className="p-2 text-dark" onClick={()=>{setOption(3)}}>Contact</Link>
+                        </nav >
+                    </div>
+                </div>
+
+                {(option==1) && (
                 <>
-                    <h1 className="display-2 text-white bg-dark">Hello I'm {user.firstName + " " + user.lastName}</h1>
-                    <h1 className="display-5 text-white bg-dark">I'm a {developer && developer.role}</h1>
-                    <dl className='row'>
-                        {projects}
-                    </dl>
+                    <div class="row" style={{marginTop:'5%'}}>
+                    <div className='col-4 offset-4'>
+                    <h1 className="display-4" style={{textAlign:'center'}}>My Projects</h1>
+                    </div>
+                    </div>
+                    <div class="row">
+                    {data}
+                    </div>
                 </>
-            } */}
+                )}
+
+                {(option==2) && (<div class="row">
+                    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 className="display-4">Hello, I'm {user.firstName + " " + user.lastName}</h1>
+                        <p className="lead" style={{ textAlign: 'left' }}>{dev.introduction}</p>
+
+                        {resumes}
+                    </div>
+                </div>)}
+                
+
+                
+
+            
+                {(option==3) && (<div class="row">
+                    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 className="display-4">If you fancy a chat, feel free to contact me:</h1>
+                        <p className="lead" style={{ textAlign: 'left' }}>Phone: {user.phoneNumber}</p>
+                        <p className="lead" style={{ textAlign: 'left' }}>Email: {user.email}</p>
+
+                    </div>
+                </div>)}
+
+                
+            </div>
         </>
     )
 }

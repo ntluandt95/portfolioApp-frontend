@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = "https://localhost:8080/";
+const API_URL = "http://localhost:8081/";
 const API_ENDPOINT = "developers";
 
 class DeveloperService {
@@ -32,12 +32,10 @@ class DeveloperService {
         });
     }
 
-    async getDevelopersByUsername(username) {
-        const response = await axios.get(API_URL + API_ENDPOINT + "/" + username, {
+    getDevelopersByUsername(username) {
+        return axios.get(API_URL + API_ENDPOINT + "/" + username, {
             headers: authHeader()
         });
-
-        return response.data;
     }
 
     async getDevelopersByRole(role) {

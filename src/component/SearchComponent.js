@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import userService from '../services/user.service';
-
 
 export default function SearchComponent() {
     const [search, setSearch] = useState('');
@@ -14,6 +14,7 @@ export default function SearchComponent() {
                 <h5>{element.username}</h5>
                 <hr></hr>
                 <p>{element.introduction}</p>
+                <Link to={'/mypage/'+element.username}>Detail</Link>
             </div>
         )));
         console.log(list)

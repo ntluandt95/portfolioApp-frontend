@@ -27,7 +27,7 @@ export const LoginComponent = ({ setUser, user, onLogout, setDeveloper }) => {
             localStorage.setItem("user", JSON.stringify(user.data));
             await setUser();
             window.alert("Login succeed");
-            history.push("/mypage");
+            history.push("/mypage/"+username);
             
         }
 
