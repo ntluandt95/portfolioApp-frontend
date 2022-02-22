@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = "http://localhost:8081/";
+const API_URL = "http://ec2-34-224-38-22.compute-1.amazonaws.com:8081/";
 const API_ENDPOINT = "developers";
 
 class DeveloperService {
