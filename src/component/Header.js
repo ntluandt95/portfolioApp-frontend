@@ -1,10 +1,10 @@
-import React, { useState, Component, useReducer } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import userService from '../services/user.service';
 export const Header = ({ user, setUser }) => {
 
-  const [devUsername, setDevUsername] = useState("");
+  const [devUsername, setDevUsername] = useState(null);
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   const changeDevUsername = (devUsername) => {
@@ -34,6 +34,7 @@ export const Header = ({ user, setUser }) => {
   else if (!user && !pathDevName && devUsername)
     changeDevUsername(null)
 
+  console.log(devUsername)
   return (
     <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
       <div><Link to={user ? '/mypage' : '/'} onClick={forceUpdate} className="my-0 mr-md-auto font-weight-normal text-dark">Portfolio</Link></div>

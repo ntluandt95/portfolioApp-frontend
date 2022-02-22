@@ -1,8 +1,8 @@
 import './App.css';
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
 import "./bootstrap.min.css";
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LoginComponent } from './component/LoginComponent';
 import { RegisterComponent } from './component/RegisterComponent';
 import authService from './services/auth.service';
@@ -24,6 +24,7 @@ function App() {
   const [username, setUsername] = useState(authService.getCurrentUsername());
   const [user, setUser] = useState(JSON.parse(authService.getCurrentUser()));
   const [viewedUser, setViewedUser] = useState(null);
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
 
   const handleLogout = () => {
@@ -50,8 +51,8 @@ function App() {
           <Route path='/developer/*'><DeveloperProfileComponent user={viewedUser} /></Route>
           <Route path='/contact/*'><DeveloperContact user={viewedUser} /></Route>
           <Route path='/about/*'><DeveloperAboutComponent user={viewedUser} /></Route>
-          <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings user={user} developer={viewedUser && viewedUser.developer} /></Route>
-          <Route exact path='/' render={(props) => <SearchComponent {...props} user={username} onLogout={handleLogout} />} />
+          <Route path='/settings'>{(!username) && (<Redirect to='/login' />)}<DeveloperSettings user={user} setUser={setUser} developer={user && user.developer} setViewedUser={setViewedUser} /></Route>
+          <Route exact path='/' render={(props) => <SearchComponent {...props} forceUpdate={forceUpdate} />} />
           <Route exact path='/resumes'><ResumeListComponent /></Route>
           <Route exact path='/resume/*'><Resume /></Route>
           <Route> <PageNotFound user={username} onLogout={handleLogout} /></Route>

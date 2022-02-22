@@ -1,29 +1,30 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import userService from '../services/user.service';
 
 
-export default function SearchComponent() {
+export default function SearchComponent({ forceUpdate }) {
     const [search, setSearch] = useState('');
     const [list, setList] = useState([]);
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+
     const handleSearch = async () => {
         const result = await userService.search(search);
         const data = await result.data;
 
+        let i = 0
         setList(data.map((element) => (
-            <div className="portfolioCard col-4 offset-1">
+            <div key={++i} className="portfolioCard col-4 offset-1">
                 <h5><Link to={"/developer/" + element.username} onClick={forceUpdate}>{element.username}</Link></h5>
                 <hr></hr>
                 <p>{element.introduction}</p>
             </div>
         )));
-
     }
 
     const handleKeyDown = (e) => {
 
-        if (e.keyCode == 13)
+        if (e.keyCode === 13)
             handleSearch(e);
     }
 

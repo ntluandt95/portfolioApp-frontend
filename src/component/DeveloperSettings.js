@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import logo from '../logo.svg';
 import developerService from '../services/developer.service';
 import userService from '../services/user.service';
+import { Loading } from './Loading';
 
-const DeveloperSettings = ({ user, developer }) => {
+const DeveloperSettings = ({ user, developer, setUser, setViewedUser }) => {
     const [invalidInput, setAlert] = useState(null)
 
 
@@ -12,6 +12,8 @@ const DeveloperSettings = ({ user, developer }) => {
 
         user.firstName = name
         userService.updateUser(user)
+        setUser(user)
+        setViewedUser(user)
     }
 
     const updatePassword = (e) => {
@@ -19,6 +21,8 @@ const DeveloperSettings = ({ user, developer }) => {
 
         user.password = pass
         userService.updateUser(user)
+        setUser(user)
+        setViewedUser(user)
     }
 
     const updateLastname = (e) => {
@@ -26,6 +30,8 @@ const DeveloperSettings = ({ user, developer }) => {
 
         user.lastName = name
         userService.updateUser(user)
+        setUser(user)
+        setViewedUser(user)
     }
 
     const updateEmail = (e) => {
@@ -33,6 +39,8 @@ const DeveloperSettings = ({ user, developer }) => {
 
         user.email = email
         userService.updateUser(user)
+        setUser(user)
+        setViewedUser(user)
     }
 
     const updatePhone = (e) => {
@@ -40,27 +48,32 @@ const DeveloperSettings = ({ user, developer }) => {
 
         user.phoneNumber = phone
         userService.updateUser(user)
+        setUser(user)
+        setViewedUser(user)
     }
 
     const updateStatus = (e) => {
         var status = document.getElementById("inputStatus").value;
 
         developer.status = status
-        developerService.updateDeveloper(user)
+        developerService.updateDeveloper(developer)
+        setViewedUser(user)
     }
 
     const updateAboutMe = (e) => {
         var introduction = document.getElementById("inputAboutMe").value;
 
         developer.introduction = introduction
-        developerService.updateDeveloper(user)
+        developerService.updateDeveloper(developer)
+        setViewedUser(user)
     }
 
     const updateRole = (e) => {
         var role = document.getElementById("inputRole").value;
 
         developer.role = role
-        developerService.updateDeveloper(user)
+        developerService.updateDeveloper(developer)
+        setViewedUser(user)
     }
 
     return (
@@ -158,20 +171,7 @@ const DeveloperSettings = ({ user, developer }) => {
                         </div>
                     </div>
                 </section> :
-                <section className="vh-100" >
-                    <div className="container py-5 h-100">
-                        <div className="row d-flex justify-content-center align-items-center h-100">
-                            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                                <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
-                                    <div className="card-body p-5 text-center">
-                                        <h3 className="mb-5">Loading</h3>
-                                        <img src={logo} className="App-logo" alt="logo"></img>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>}
+                <Loading />}
         </>
     )
 }

@@ -1,19 +1,18 @@
-import React, { useReducer, useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom';
-import logo from '../logo.svg';
 import Card from './card';
+import { Loading } from './Loading';
 
 
 
 const DeveloperProfileComponent = ({ user }) => {
     const developer = user && user.developer;
 
+    let i = 0;
     const projects = developer && developer.projectList.map(proj =>
-        <>
-            <div className="col-sm-4">
-                <Card name={proj.name} desc={proj.description} img={proj.imgLink} github={proj.githublink} link={proj.deploymentlink} status={proj.status} />
-            </div>
-        </>
+        <div key={i++} className="col-sm-4">
+            <Card name={proj.name} desc={proj.description} img={proj.imgLink} github={proj.githublink} link={proj.deploymentlink} status={proj.status} />
+        </div>
     )
 
     return (
@@ -40,20 +39,7 @@ const DeveloperProfileComponent = ({ user }) => {
                         {projects}
                     </>
                 :
-                <section className="vh-100" >
-                    <div className="container py-5 h-100">
-                        <div className="row d-flex justify-content-center align-items-center h-100">
-                            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                                <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
-                                    <div className="card-body p-5 text-center">
-                                        <h3 className="mb-5">Loading</h3>
-                                        <img src={logo} className="App-logo" alt="logo"></img>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <Loading />
             }
         </>
     )
