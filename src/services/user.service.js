@@ -39,9 +39,10 @@ class UserService {
 
   postDeveloper(username) {
     return axios.post(API_URL + 'developers', {
-      headers: authHeader(),
       username: username
-    });
+    },
+      { headers: authHeader() }
+    );
   }
 
   search(searchString) {

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { User } from '../model/User';
 import userService from '../services/user.service';
 import { useHistory } from "react-router-dom";
+import authHeader from '../services/auth-header';
+import authService from '../services/auth.service';
 
 export function RegisterComponent() {
 
@@ -17,17 +19,18 @@ export function RegisterComponent() {
     const [alert, setAlert] = useState(null)
     const history = useHistory();
     const handleSubmit = async () => {
-        if(username===""){
+        if (username === "") {
             setAlert("Username is required!");
-        }else if(password===""){
+        } else if (password === "") {
             setAlert("Password is required!");
-        }else if(repassword!=password){
+        } else if (repassword != password) {
             //console.log(repassword!=password)
             setAlert("Please confirm password!");
-        }else{
+        } else {
             let user = new User(username, password, firstname, lastname, email, phone);
             await userService.postUser(user);
             if (role === "DEVELOPER") {
+                await authService.login(user.username, user.password);
                 await userService.postDeveloper(user.username);
             }
             window.alert("Register succeed");
