@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = "https://localhost:8080/";
+const API_URL = "http://localhost:8081/";
 const API_ENDPOINT = "developers";
 
 class DeveloperService {
@@ -11,7 +11,7 @@ class DeveloperService {
     }
 
     async addDeveloper(developer) {
-        const response = await axios.post(API_URL + API_ENDPOINT + developer.username, {
+        const response = await axios.post(API_URL + API_ENDPOINT, {
             username: developer.username,
             introduction: developer.password,
             status: developer.firstName,

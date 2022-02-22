@@ -11,22 +11,33 @@ import { Link } from 'react-router-dom'
 const DeveloperProfileComponent = (props) => {
     const { username } = useParams()
     const [data, setData] = useState([])
-    const [user, setUser] = useState(userService.getUserByUsername(username))
-    const [dev, setDev] = useState(developerService.getDevelopersByUsername(username))
+    var [user, setUser] = useState(userService.getUserByUsername(username))
+    var [dev, setDev] = useState(developerService.getDevelopersByUsername(username))
     const [resumes, setResumes] = useState([]);
     const [option, setOption] = useState(1);
 
 
     useEffect(async () => {
-        const response = await userService.getUserByUsername(username);
-        await setUser(response.data)
+        const responseUser = await userService.getUserByUsername(username);
+        user = await responseUser.data;
+        await setUser(user)
+        
+
+
         const responseDev = await developerService.getDevelopersByUsername(username);
-        await setDev(responseDev.data)
-        await fetchCards();
-        await fetchResumes();
+        dev = await responseDev.data
+        await setDev(dev)
+        
+        
+
+        fetchCards();
+        fetchResumes();
+        
+        
     }, [data]);
 
     const fetchCards = async () => {
+        
         const response = await projectService.getProjectsByUsername(username);
 
 
@@ -45,7 +56,7 @@ const DeveloperProfileComponent = (props) => {
                 <a href={element.link}>Download my {element.title} resume</a>
             </p>
         )));
-        console.log(resumes)
+        
     }
 
 
@@ -78,7 +89,7 @@ const DeveloperProfileComponent = (props) => {
                     {(option == 2) && (<div class="row">
                         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                             <h1 className="display-4">Hello, I'm {user.firstName + " " + user.lastName}</h1>
-                            <p className="lead" style={{ textAlign: 'left' }}>{dev.introduction}</p>
+                            <p className="lead" style={{ textAlign: 'left' }}>{user.developer.introduction}</p>
 
                             {resumes}
                         </div>

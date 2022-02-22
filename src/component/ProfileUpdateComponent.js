@@ -26,8 +26,9 @@ export const ProfileUpdateComponent = () => {
 
         setUser(user)
 
-        const responseDev = await developerService.getDevelopersByUsername(username);
-        dev = responseDev.data
+        const responseDev = developerService.getDevelopersByUsername(username);
+        dev = await responseDev
+
         setDev(dev)
 
 
@@ -35,7 +36,7 @@ export const ProfileUpdateComponent = () => {
         await setLast(user.lastName)
         await setPhone(user.phoneNumber)
         await setEmail(user.email)
-        await setIntro(dev.introduction)
+        await setIntro(user.developer.introduction)
 
     }
 
@@ -44,6 +45,7 @@ export const ProfileUpdateComponent = () => {
         user.lastName = last;
         user.phoneNumber = phone;
         user.email = email;
+        console.log(dev);
         dev.introduction = intro;
 
         userService.putUser(user);

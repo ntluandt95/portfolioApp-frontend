@@ -1,7 +1,7 @@
 import axios from "axios";
 import userService from "./user.service";
 
-const API_URL = "https://localhost:8081/";
+const API_URL = "http://localhost:8081/";
 class AuthService {
   async login(username, password) {
     return axios
