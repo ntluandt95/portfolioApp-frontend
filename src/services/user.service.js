@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../model/User';
 import authHeader from './auth-header';
-const API_URL = 'http://ec2-34-224-38-22.compute-1.amazonaws.com:8081/';
+const API_URL = 'https://ec2-34-224-38-22.compute-1.amazonaws.com:8081/';
 class UserService {
   getProjects() {
     return axios.get(API_URL + 'Projects', { headers: authHeader() });

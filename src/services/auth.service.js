@@ -1,7 +1,7 @@
 import axios from "axios";
 import userService from "./user.service";
 
-const API_URL = "http://ec2-34-224-38-22.compute-1.amazonaws.com:8081/";
+const API_URL = "https://ec2-34-224-38-22.compute-1.amazonaws.com:8081/";
 class AuthService {
   async login(username, password) {
     return axios
