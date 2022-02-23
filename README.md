@@ -1,5 +1,5 @@
 This is the frontend part of our Portfolio Project - for the rest of it check out
-our (backend)[https://github.com/ntluandt95/portfolioApp-backend].
+our [backend](https://github.com/ntluandt95/portfolioApp-backend).
 
 
 # Getting Started with Create React App
